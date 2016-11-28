@@ -1,6 +1,17 @@
 window.addEventListener('load', function() {
 
-  var lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN);
+  var options = {
+    theme: {
+      logo: './Stony_Brook_University_Medicine_Logo.gif',
+      primaryColor: '#666666'
+    },
+    languageDictionary: {
+      emailInputPlaceholder: "something@youremail.com",
+      title: "Portal Login"
+    },
+    allowedConnections: ['google-oauth2', 'github', 'facebook', 'box']
+  };
+  var lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, options);
 
   // buttons
   var btn_login = document.getElementById('btn-login');
@@ -44,7 +55,9 @@ window.addEventListener('load', function() {
     var avatar = document.getElementById('avatar');
     document.getElementById('nickname').textContent = profile.name;
     document.getElementById('email').textContent = profile.email;
+    document.getElementById('tkn').textContent = localStorage.getItem('id_token');
     document.getElementById('welcome').style.display = "block";
+    document.getElementById('yourToken').style.display = "block";
     btn_login.style.display = "none";
     avatar.src = profile.picture;
     avatar.style.display = "block";
